@@ -9,7 +9,7 @@ def shortest_route(filename)
 
   distances = get_total(permutations, trip_data)
   # print distances
-  return distances.min
+  return distances.max
 end
 
 
