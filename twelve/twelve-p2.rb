@@ -9,6 +9,11 @@ end
 def parse_data(data)
   count = 0
   puts data
+  # first check for read before continuing the parse_data
+  if red?(data)
+    return count
+  end
+
   data.each do |d|
     no_red = !red?(d)
     if iterable?(d) && no_red
@@ -32,8 +37,6 @@ def red?(data)
   # binding.pry
   if data.class == Hash
     return true if data.values.include?("red")
-  elsif data.class == Array
-    return true if data.include?("red")
   else
     return false
   end
@@ -49,4 +52,4 @@ def read_file(filename)
   return file
 end
 
-puts accounting("input-short.txt")
+puts accounting("input.txt")
