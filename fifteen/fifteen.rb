@@ -1,6 +1,7 @@
 require 'pry'
 
 TOTAL_TEAS = 100
+TOTAL_CALS = 500
 I_COUNT = 4
 
 def best_cookies(filename)
@@ -19,13 +20,15 @@ def get_scores(data, options)
     total_dur = 0
     total_flav = 0
     total_text = 0
+    total_cals = 0
     (0..I_COUNT - 1).each do |i|
       total_cap += cap_score(data[i], opt[i])
       total_dur += dur_score(data[i], opt[i])
       total_flav += fla_score(data[i], opt[i])
       total_text += text_score(data[i], opt[i])
+      total_cals += calories(data[i], opt[i])
     end
-    if (total_cap > 0) && (total_dur > 0) && (total_flav > 0) && (total_text > 0)
+    if (total_cap > 0) && (total_dur > 0) && (total_flav > 0) && (total_text > 0) && (total_cals == 500)
       total = (total_cap * total_dur * total_flav * total_text)
       scores << total
     end
@@ -51,12 +54,22 @@ def text_score(ingredient, teas)
   return ingredient["texture"] * teas
 end
 
+def calories(ingredient, teas)
+  return ingredient["calories"] * teas
+end
+
 def create_options
   options = []
 
   # UGH WHY SO BRUTE FORCE
   (1..100).each do |i|
     (1..100).each do |j|
+
+      # if (i + j) == 100
+      #   options << [i, j]
+      # end
+
+
       (1..100).each do |k|
         (1..100).each do |l|
           if (i + j + k + l) == 100
